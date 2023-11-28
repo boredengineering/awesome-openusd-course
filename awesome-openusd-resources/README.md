@@ -1,5 +1,5 @@
-  <p align="center">
-  <a href="https://github.com/matiascodesal/awesome-usd"><img alt="awesome" src="https://github.com/matiascodesal/awesome-usd/blob/c51c80497c0aee22a4f6172fda22cc8bfd3f8586/images/AwesomeUSD_2by1_sm.png" width="480" /></a>
+<p align="center">
+<a href="https://github.com/boredengineering/awesome-openusd-course"><img alt="awesome" src="https://github.com/boredengineering/awesome-openusd-course/tree/main/awesome-openusd-resources/images/AwesomeUSD_2by1_sm.png" width="480" /></a>
 </p>
 <p align="center">
   <a href="https://awesome.re"><img alt="awesome" src="https://awesome.re/badge.svg" /></a>
@@ -10,6 +10,8 @@
 A curated list of awesome Universal Scene Description (OpenUSD) resources and projects. These are hand-picked resources and projects that I find awesome. You might find more or others at the [ASWF USD Working Group Wiki](https://wiki.aswf.io/display/WGUSD/USD+Projects+and+Resources).
 
 Curated by [@maticodes](https://twitter.com/maticodes)
+
+Source: https://github.com/matiascodesal/awesome-usd
 
 ## Contents
 
