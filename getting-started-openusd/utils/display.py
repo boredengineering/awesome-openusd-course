@@ -18,7 +18,7 @@ import subprocess
 
 from IPython.core.display import display, HTML
 from pxr import Usd, Vt
-
+from pathlib import Path
 
 def _convert_cube(prim: Usd.Prim) -> None:
     """
@@ -160,31 +160,52 @@ def display_usd(source_file_path: str) -> str:
         str: The given USDA file in an interactive viewer, after having converted it to its glTF representation.
 
     """
+    print("Source file ", source_file_path)
     usdc_file_path = source_file_path.replace(".usda", ".usdc")
     gltf_file_path = source_file_path.replace(".usda", ".glb")
+    print("USDC file ", usdc_file_path)
+    print("GLTF file ", gltf_file_path)
     
     # Convert the USDA scene to USDC:
     _convert_usda_to_usdc(
         source_file_path=source_file_path,
         destination_file_path=usdc_file_path,
     )
+    # Absolute path to working Dir
+    path = Path.cwd()
+    print("Absolute path to working Dir", path) 
+
+    # Define the paths
+    # Blender
+    # Full Path C:\Program Files\Blender Foundation\Blender 3.4\blender.exe
+    # TODO - Add Logic for relative path
+    blender_executable = "C:/Program Files/Blender Foundation/Blender 3.4/blender.exe"
+    
+    # Script Path
+    script_path = "./utils/convert.py"
+    
+    # Full Path for --source and --destination
+    # TODO - Add Logic for relative path
+    source_file = path / Path(usdc_file_path)
+    destination_file = path / Path(gltf_file_path)
+
+    print("source_file", source_file)
+    print("destination_file", destination_file)
 
     # Convert the USDC scene to glTF:
-    process = subprocess.Popen(
-        [
-            "blender", 
-            "--background", "-noaudio", 
-            "--python", "./utils/convert.py",
-            "--",
-            "--source", usdc_file_path,
-            "--destination", gltf_file_path,
-        ],
-        stdout=subprocess.PIPE, 
-        stderr=subprocess.PIPE,
-    )
-    stdout, stderr = process.communicate()
-    # print(f"stdout = {stdout.decode('utf-8')}")
-    # print(f"stderr = {stderr.decode('utf-8')}")
+    # Construct the command
+    command = [
+        blender_executable, 
+        "--background", 
+        "-noaudio", 
+        "--python", script_path, 
+        "--",  # This double dash is used to indicate that subsequent arguments should be passed to the script
+        "--source", source_file, 
+        "--destination", destination_file
+    ]
+
+    # Execute the command
+    result = subprocess.run(command, capture_output=True, text=True)
     
     # Return an HTML preview of the USDA file under its glTF representation:
     return display(

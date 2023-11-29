@@ -18,8 +18,8 @@ import argparse
 import sys
 
 import bpy
-import io_scene_usdz
-from io_scene_usdz.import_usdz import import_usdz
+# import io_scene_usdz
+# from io_scene_usdz.import_usdz import import_usdz
 
 
 class ArgumentParserForBlender(argparse.ArgumentParser):
@@ -79,12 +79,16 @@ def main():
     )
     args = parser.parse_args()
 
+    print("Calling convert.py")
 
     # Clear the content of the default Blender scene:
     bpy.ops.wm.read_homefile(use_empty=True)
+    print("Cleared blender content")
 
     # Import the source USDC file:
-    import_usdz(context=bpy.context, filepath=args.source)
+    # import_usdz(context=bpy.context, filepath=args.source)
+    bpy.ops.wm.usd_import(filepath=args.source)
+    print("Import USDC file")
 
     # Export the destination glTF file:
     bpy.ops.export_scene.gltf(filepath=args.destination)
